@@ -475,7 +475,7 @@ def main():
         get_page3()
 
   # 사이드바 설정
-    image = Image.open('C:/Users/ecoeye/Desktop/강지원/에코아이 로고.png')
+    image = Image.open('./logo.png')
     st.sidebar.image(image)
     st.sidebar.title(":blue[에코아이] 환경정보사업팀", )
     st.sidebar.write("---")
