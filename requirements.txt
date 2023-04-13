@@ -1,12 +1,10 @@
-time
 numpy
 pandas
-matplotlib.pyplot
+matplotlib
 seaborn
-plotly.express
+plotly
 streamlit
-mysql.connector
+mysql
 PIL
 folium
 geopandas
-warnings
