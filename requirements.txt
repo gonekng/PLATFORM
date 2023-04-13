@@ -4,6 +4,6 @@ matplotlib
 seaborn
 plotly
 streamlit
-mysql
+mysql.connector
 folium
 geopandas
