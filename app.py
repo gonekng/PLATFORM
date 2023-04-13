@@ -1,6 +1,16 @@
+import subprocess
+
+# 패키지 설치
+package_list = ['numpy', 'pandas', 'matplotlib', 'seaborn', 'plotly', 'streamlit', 'mysql', 'PIL', 'folium', 'geopandas']
+for i, package in enumerate(package_list):
+    print("패키지 설치 중...", i+1, end="\r")
+    subprocess.run(['pip', 'install', package], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+print(f"패키지 {i+1}개 설치 완료")
+
 import time
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 import streamlit as st
