@@ -114,33 +114,7 @@ def move_map():
 def connect_db():
 
   # DB 연결하기
-    mydb = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="0000",
-        database="emissionsdb"
-    )
-
-#   # 테이블 정보 가져오기
-#     my_cursor = mydb.cursor()
-#     my_cursor.execute("SHOW TABLES")
-#     table_list = [x[0] for x in my_cursor.fetchall()]
-
-#   # 각 테이블의 컬럼 정보 가져오기
-#     table_dict = {}
-#     for table in table_list:
-#         my_cursor.execute(f"DESCRIBE {table}")
-#         columns = [x[0] for x in my_cursor.fetchall()]
-#         table_dict[table] = columns
-
-#   # 데이터프레임 생성
-#     result_df = pd.DataFrame({
-#         "Table": list(table_dict.keys()),
-#         "Columns": list(table_dict.values())
-#     })
-
-#     result_df['N'] = [1,2,0,3]
-#     result_df = result_df.sort_values('N').reset_index(drop=True)[['Table','Columns']]
+    mydb = mysql.connector.connect(**st.secrets["mysql"])
 
     return mydb
 
