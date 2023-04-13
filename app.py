@@ -54,7 +54,7 @@ def move_map():
     idx1 = df_region.loc[df_region['광역지자체'] == st.session_state.input_list[0],:].index[0]
     idx2 = df_region.loc[idx1, '기초지자체'].index(st.session_state.input_list[1])
 
-    gdf = gpd.read_file(f'행정구역시군구_경계\LARD_ADM_SECT_SGG_{idx1+1}_{st.session_state.input_list[0]}\LARD_ADM_SECT_SGG.shp', encoding='euc-kr')
+    gdf = gpd.read_file(f'./행정구역시군구_경계/LARD_ADM_SECT_SGG_{idx1+1}_{st.session_state.input_list[0]}/LARD_ADM_SECT_SGG.shp', encoding='euc-kr')
     gdf2 = gdf.to_crs(epsg=4326)
     gdf2['center'] = gdf2.centroid
     center1 = (np.median(gdf2['center'].y), np.median(gdf2['center'].x))
