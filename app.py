@@ -85,17 +85,17 @@ def move_map():
     vworld_key="E00B11DC-0EA7-30F4-B7F6-0D5B4A4CDFA3"
     tiles = f"http://api.vworld.kr/req/wmts/1.0.0/{vworld_key}/Base/{{z}}/{{y}}/{{x}}.png"
 
-    # folium.TileLayer(
-    #     tiles=tiles,
-    #     attr="Vworld",
-    #     overlay=True,
-    #     control=True
-    # ).add_to(m)
+    folium.TileLayer(
+        tiles=tiles,
+        attr="Vworld",
+        overlay=True,
+        control=True
+    ).add_to(m)
 
-    # 배경지도 타일 설정하기
-    tiles = "CartoDB positron"
-    # 배경지도 타일 레이어를 지도에 추가하기
-    folium.TileLayer(tiles=tiles).add_to(m)
+    # # 배경지도 타일 설정하기
+    # tiles = "CartoDB positron"
+    # # 배경지도 타일 레이어를 지도에 추가하기
+    # folium.TileLayer(tiles=tiles).add_to(m)
 
     folium.GeoJson(
         sgg_gdf,
@@ -114,7 +114,14 @@ def move_map():
 def connect_db():
 
   # DB 연결하기
-    mydb = mysql.connector.connect(**st.secrets["mysql"])
+    # mydb = mysql.connector.connect(**st.secrets["mysql"])
+    mydb = mysql.connector.connect(
+        host = "localhost",
+        port = "3306",
+        user = "root",
+        database = "emissionsdb",
+        password = "0000"
+    )
 
     return mydb
 

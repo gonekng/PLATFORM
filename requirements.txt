@@ -4,6 +4,7 @@ matplotlib
 seaborn
 plotly
 streamlit
+streamlit-folium
 mysql.connector
 mysql-connector-python
 folium
