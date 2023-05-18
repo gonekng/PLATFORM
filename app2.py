@@ -105,7 +105,7 @@ def connect_db():
 
   # DB 연결하기
     db = mysql.connector.connect(
-        host = "localhost",
+        host = "192.168.0.32",
         port = "3306",
         user = "root",
         database = "emissionsdb",
