@@ -5,6 +5,7 @@ seaborn
 plotly
 streamlit
 streamlit-folium
+streamlit_option_menu
 mysql.connector
 mysql-connector-python
 folium
