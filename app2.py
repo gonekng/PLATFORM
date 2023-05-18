@@ -107,7 +107,7 @@ def connect_db():
     db = mysql.connector.connect(
         host = "192.168.0.32",
         port = "3306",
-        user = "root",
+        user = "Admin",
         database = "emissionsdb",
         password = "0000"
     )
