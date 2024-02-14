@@ -14,6 +14,76 @@ import warnings
 import json
 warnings.filterwarnings('ignore')
 
+# -------------------- MYSQL 연동 -------------------- #
+# DB 연동
+def connect_db():
+
+  # DB 정보 불러오기
+    with open("db_info.json", "r") as file:
+        data = json.load(file)
+    
+  # DB 연결하기
+    db = mysql.connector.connect(
+        host = data["db"][0]["host"],
+        port = data["db"][0]["port"],
+        user = data["db"][0]["user"],
+        database = data["db"][0]["database"],
+        password = data["db"][0]["password"]
+    )
+
+    db2 = mysql.connector.connect(
+        host = data["db"][1]["host"],
+        port = data["db"][1]["port"],
+        user = data["db"][1]["user"],
+        database = data["db"][1]["database"],
+        password = data["db"][1]["password"]
+    )
+    
+    return db, db2
+
+# 활동자료 DB 연결
+def get_db1(num, filter=False):
+
+    cat_lst = ["전체", "에너지", "산업공정", "농업", "LULUCF", "폐기물", "간접배출"]
+    query_s = 'select cast(c.연도 as char) as 연도, c.시도, c.시군구, a.구분1, a.구분2, a.구분3, a.구분4, a.구분5, b.활동자료1, b.활동자료2, b.활동자료3, b.단위, c.값, c.최신업데이트일, c.업데이트가능여부 '
+    query_f = 'from TB_CATEGORY a, TB_ACT_INFO b, TB_ACT_VALUE c '
+    query_w = f'where a.id = b.category_id and b.id = c.activity_id and c.연도 >= {st.session_state.input_list[2]} and c.연도 <= {st.session_state.input_list[3]} and c.시도 = "{st.session_state.input_list[0]}" '
+    if num != 0:
+        query_w = query_w + f' and a.`구분1` = "{cat_lst[num]}"'
+    if filter and st.session_state.input_list[1] != "전체":
+        query_w = query_w + f' and c.시군구 = "{st.session_state.input_list[1]}"'
+
+    query = query_s + query_f + query_w
+    df = pd.read_sql(query, db)
+    return df
+
+# 배출량 DB 연결
+def get_db2(num, filter=False):
+
+    cat_lst = ["전체", "에너지", "산업공정", "농업", "LULUCF", "폐기물", "간접배출"]
+    query_s = 'select cast(b.연도 as char) as 연도, b.시도, b.시군구, a.구분1, a.구분2, a.구분3, a.구분4, a.구분5, b.단위, ROUND(b.배출량, 0) as 배출량, b.최신업데이트일, b.업데이트가능여부 '
+    query_f = 'from TB_CATEGORY a, TB_EMIT_VALUE b '
+    query_w = f'where a.id = b.category_id and b.연도 >= {st.session_state.input_list[2]} and b.연도 <= {st.session_state.input_list[3]} and b.시도 = "{st.session_state.input_list[0]}"'
+    if num != 0:
+        query_w = query_w + f' and a.`구분1` = "{cat_lst[num]}"'
+    if filter and st.session_state.input_list[1] != "전체":
+        query_w = query_w + f' and b.시군구 = "{st.session_state.input_list[1]}"'
+
+    query = query_s + query_f + query_w
+    df = pd.read_sql(query, db)
+    return df
+
+# 활동자료/배출량 DB 업데이트
+def update_db(num):
+
+    cur = db.cursor()
+    tb_lst = ['TB_ACT_VALUE', 'TB_EMIT_VALUE']
+    cur.execute(f'UPDATE {tb_lst[num]} SET 최신업데이트일 = CURDATE() WHERE 업데이트가능여부 = "가능";')
+    cur.execute(f'UPDATE {tb_lst[num]} SET 업데이트가능여부 = "완료" WHERE 최신업데이트일 = curdate();')
+    db.commit()
+
+    return 0
+
 # -------------------- 지자체 설정 -------------------- #
 # 광역지자체
 def get_region_list():
@@ -97,85 +167,14 @@ def move_map():
 
     return m
 
-# -------------------- MYSQL 연동 -------------------- #
-# DB 연동
-def connect_db():
-
-  # DB 정보 불러오기
-    with open("db_info.json", "r") as file:
-        data = json.load(file)
-    
-  # DB 연결하기
-    db = mysql.connector.connect(
-        host = data["db"][0]["host"],
-        port = data["db"][0]["port"],
-        user = data["db"][0]["user"],
-        database = data["db"][0]["database"],
-        password = data["db"][0]["password"]
-    )
-
-    db2 = mysql.connector.connect(
-        host = data["db"][1]["host"],
-        port = data["db"][1]["port"],
-        user = data["db"][1]["user"],
-        database = data["db"][1]["database"],
-        password = data["db"][1]["password"]
-    )
-    
-    return db, db2
-
-# 활동자료 DB 연결
-def get_db1(num, filter=False):
-
-    cat_lst = ["전체", "에너지", "산업공정", "농업", "LULUCF", "폐기물", "간접배출"]
-    query_s = 'select cast(c.연도 as char) as 연도, c.시도, c.시군구, a.구분1, a.구분2, a.구분3, a.구분4, a.구분5, b.활동자료1, b.활동자료2, b.활동자료3, b.단위, c.값, c.최신업데이트일, c.업데이트가능여부 '
-    query_f = 'from TB_CATEGORY a, TB_ACT_INFO b, TB_ACT_VALUE c '
-    query_w = f'where a.id = b.category_id and b.id = c.activity_id and c.연도 >= {st.session_state.input_list[2]} and c.연도 <= {st.session_state.input_list[3]} and c.시도 = "{st.session_state.input_list[0]}" '
-    if num != 0:
-        query_w = query_w + f' and a.`구분1` = "{cat_lst[num]}"'
-    if filter and st.session_state.input_list[1] != "전체":
-        query_w = query_w + f' and c.시군구 = "{st.session_state.input_list[1]}"'
-
-    query = query_s + query_f + query_w
-    df = pd.read_sql(query, db)
-    return df
-
-# 배출량 DB 연결
-def get_db2(num, filter=False):
-
-    cat_lst = ["전체", "에너지", "산업공정", "농업", "LULUCF", "폐기물", "간접배출"]
-    query_s = 'select cast(b.연도 as char) as 연도, b.시도, b.시군구, a.구분1, a.구분2, a.구분3, a.구분4, a.구분5, b.단위, ROUND(b.배출량, 0) as 배출량, b.최신업데이트일, b.업데이트가능여부 '
-    query_f = 'from TB_CATEGORY a, TB_EMIT_VALUE b '
-    query_w = f'where a.id = b.category_id and b.연도 >= {st.session_state.input_list[2]} and b.연도 <= {st.session_state.input_list[3]} and b.시도 = "{st.session_state.input_list[0]}"'
-    if num != 0:
-        query_w = query_w + f' and a.`구분1` = "{cat_lst[num]}"'
-    if filter and st.session_state.input_list[1] != "전체":
-        query_w = query_w + f' and b.시군구 = "{st.session_state.input_list[1]}"'
-
-    query = query_s + query_f + query_w
-    df = pd.read_sql(query, db)
-    return df
-
-# 활동자료/배출량 DB 업데이트
-def update_db(num):
-
-    cur = db.cursor()
-    tb_lst = ['TB_ACT_VALUE', 'TB_EMIT_VALUE']
-    cur.execute(f'UPDATE {tb_lst[num]} SET 최신업데이트일 = CURDATE() WHERE 업데이트가능여부 = "가능";')
-    cur.execute(f'UPDATE {tb_lst[num]} SET 업데이트가능여부 = "완료" WHERE 최신업데이트일 = curdate();')
-    db.commit()
-
-    return 0
-
 # -------------------- 페이지 구성 -------------------- #
 # 사이드바 설정
 def set_sidebar():
 
     st.sidebar.image(Image.open('./logo.png'), use_column_width = True)
-    st.sidebar.title("🌱 :green[에코아이] 환경정보사업팀")
+    st.sidebar.title(":green[에코아이] / 환경정보사업팀")
     st.sidebar.write("---")
-    st.sidebar.write("**:: 조건 입력 ::**")
-
+    
     # 광역지자체 선택
     df_region = get_region_list()
     idx_region = int(df_region[df_region['광역지자체'] == st.session_state.input_list[0]].index[0] if 'input_list' in st.session_state else 0)
@@ -201,7 +200,7 @@ def set_sidebar():
         st.rerun()
 
     st.sidebar.write("---")
-    st.sidebar.write(f'🔍 **{st.session_state.input_list[0]} {st.session_state.input_list[1]} ({st.session_state.input_list[2]}년 ~ {st.session_state.input_list[3]}년)**', unsafe_allow_html=True)
+    st.sidebar.write(f'➡️ **{st.session_state.input_list[0]} {st.session_state.input_list[1]} ({st.session_state.input_list[2]}년 ~ {st.session_state.input_list[3]}년)**', unsafe_allow_html=True)
     if st.sidebar.button("초기화", key="refresh_button", use_container_width=True):
         st.session_state.input_list = ['서울특별시', '전체', 2015, 2022]
         m = move_map()
