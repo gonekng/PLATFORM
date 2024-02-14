@@ -202,7 +202,7 @@ def set_sidebar():
         st.session_state.input_list = [selected_region, selected_subregion, year[0], year[1]]
         m = move_map()
 #        m.save("map.html")
-        st.experimental_rerun()
+        st.rerun()
 
     st.sidebar.write("---")
     st.sidebar.write(f'🔍 **{st.session_state.input_list[0]} {st.session_state.input_list[1]} ({st.session_state.input_list[2]}년 ~ {st.session_state.input_list[3]}년)**', unsafe_allow_html=True)
@@ -210,7 +210,7 @@ def set_sidebar():
         st.session_state.input_list = ['서울특별시', '전체', 2015, 2022]
         m = move_map()
 #        m.save("map.html")
-        st.experimental_rerun()
+        st.rerun()
 
 # 홈페이지
 def get_home():
@@ -260,7 +260,7 @@ def get_home():
                 st.error('로그인 후 사용 가능합니다.', icon="⚠️")
             else:
                 st.session_state.page = 0
-                st.experimental_rerun()
+                st.rerun()
 
 # 회원가입 페이지
 def get_join_page():
@@ -286,7 +286,7 @@ def get_join_page():
             st.success('회원가입이 완료되었습니다.', icon="✅")
             time.sleep(2)
             st.session_state.page = 10
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.error('이미 존재하는 아이디입니다.', icon="⛔")
 
@@ -306,7 +306,7 @@ def get_login_page():
                 st.success('로그인 되었습니다.', icon="✅")
                 time.sleep(2)
                 st.session_state.page = 10
-                st.experimental_rerun()
+                st.rerun()
             else:
                 st.error('아이디 또는 비밀번호를 잘못 입력하였습니다.', icon="⛔")
 
@@ -349,17 +349,17 @@ def get_page_0():
             go_1 = st.button("활동자료 DB >", key="go_1_button", use_container_width=True)
             if go_1:
                 st.session_state.page = 1
-                st.experimental_rerun()
+                st.rerun()
         with c2:
             go_2 = st.button("배출량 DB >", key="go_2_button", use_container_width=True)
             if go_2:
                 st.session_state.page = 2
-                st.experimental_rerun()
+                st.rerun()
         with c3:
             go_3 = st.button("분석 시각화 >", key="go_3_button", use_container_width=True)
             if go_3:
                 st.session_state.page = 3
-                st.experimental_rerun()
+                st.rerun()
     st.write("---")
 
 # 활동자료 페이지
@@ -514,7 +514,7 @@ def get_page1():
         
         if button_clicked:
             st.session_state.page = 991
-            st.experimental_rerun()
+            st.rerun()
 
     st.write("---")
     c1, c2, c3 = st.columns([1,1,1])
@@ -522,17 +522,17 @@ def get_page1():
         go_0 = st.button("메인 페이지", key="go_0_button", use_container_width=True)
         if go_0:
             st.session_state.page = 0
-            st.experimental_rerun()
+            st.rerun()
     with c2:
         go_2 = st.button("배출량 DB", key="go_2_button", use_container_width=True)
         if go_2:
             st.session_state.page = 2
-            st.experimental_rerun()
+            st.rerun()
     with c3:
         go_3 = st.button("분석 시각화", key="go_3_button", use_container_width=True)
         if go_3:
             st.session_state.page = 3
-            st.experimental_rerun()
+            st.rerun()
 
 # 활동자료 업데이트 페이지
 def get_update_page1():
@@ -560,7 +560,7 @@ def get_update_page1():
     st.success("업데이트가 완료되었습니다.")
     time.sleep(1)
     st.session_state.page = 1
-    st.experimental_rerun()
+    st.rerun()
 
 # 배출량 페이지
 def get_page2():
@@ -678,7 +678,7 @@ def get_page2():
         
         if button_clicked:
             st.session_state.page = 992
-            st.experimental_rerun()
+            st.rerun()
     
     st.write("---")
     c1, c2, c3 = st.columns([1,1,1])
@@ -686,17 +686,17 @@ def get_page2():
         go_0 = st.button("메인 페이지", key="go_0_button", use_container_width=True)
         if go_0:
             st.session_state.page = 0
-            st.experimental_rerun()
+            st.rerun()
     with c2:
         go_1 = st.button("활동자료 DB", key="go_1_button", use_container_width=True)
         if go_1:
             st.session_state.page = 1
-            st.experimental_rerun()
+            st.rerun()
     with c3:
         go_3 = st.button("분석 시각화", key="go_3_button", use_container_width=True)
         if go_3:
             st.session_state.page = 3
-            st.experimental_rerun()
+            st.rerun()
 
 # 배출량 업데이트 페이지
 def get_update_page2():
@@ -724,7 +724,7 @@ def get_update_page2():
     st.success("업데이트가 완료되었습니다.")
     time.sleep(1)
     st.session_state.page = 2
-    st.experimental_rerun()
+    st.rerun()
 
 # 분석결과 페이지
 def get_page3():
@@ -958,17 +958,17 @@ def get_page3():
         go_0 = st.button("메인 페이지", key="go_0_button", use_container_width=True)
         if go_0:
             st.session_state.page = 0
-            st.experimental_rerun()
+            st.rerun()
     with c2:
         go_1 = st.button("활동자료 DB", key="go_1_button", use_container_width=True)
         if go_1:
             st.session_state.page = 1
-            st.experimental_rerun()
+            st.rerun()
     with c3:
         go_2 = st.button("배출량 DB", key="go_2_button", use_container_width=True)
         if go_2:
             st.session_state.page = 2
-            st.experimental_rerun()
+            st.rerun()
 
 # --------------------- 메인 함수 --------------------- #
 def main():
@@ -1006,7 +1006,7 @@ def main():
     with col0:
         if st.button('**Home**'):
             st.session_state.page = 10
-            st.experimental_rerun()
+            st.rerun()
     with col1:
         if st.session_state.member != None:
             if st.session_state.member[6]:
@@ -1018,23 +1018,23 @@ def main():
         if st.session_state.member == None:
             if st.button('**회원가입**', use_container_width=True):
                 st.session_state.page = 11
-                st.experimental_rerun()
+                st.rerun()
         else:
             if st.button("**마이페이지**", use_container_width=True):
                 st.session_state.page = 13
-                st.experimental_rerun()
+                st.rerun()
     with col3:
         if st.session_state.member == None:
             if st.button('**로그인**', use_container_width=True):
                 st.session_state.page = 12
-                st.experimental_rerun()
+                st.rerun()
         else:
             if st.button("**로그아웃**", use_container_width=True):
                 st.success('로그아웃 완료', icon="✅")
                 st.session_state.member = None
                 time.sleep(2)
                 st.session_state.page = 10
-                st.experimental_rerun()
+                st.rerun()
 
   # 페이지 이동
     if st.session_state.page == 0:
