@@ -15,6 +15,7 @@ import base64
 import folium
 import geopandas as gpd
 import warnings
+import json
 warnings.filterwarnings('ignore')
 
 # -------------------- 지자체 설정 -------------------- #
@@ -104,21 +105,25 @@ def move_map():
 # DB 연동
 def connect_db():
 
+  # DB 정보 불러오기
+    with open("db_info.json", "r") as file:
+        data = json.load(file)
+    
   # DB 연결하기
     db = mysql.connector.connect(
-        host = "localhost",
-        port = "3306",
-        user = "Admin",
-        database = "emissionsdb",
-        password = "0000"
+        host = data["db"][0]["host"],
+        port = data["db"][0]["port"],
+        user = data["db"][0]["user"],
+        database = data["db"][0]["database"],
+        password = data["db"][0]["password"]
     )
 
     db2 = mysql.connector.connect(
-        host = "localhost",
-        port = "3306",
-        user = "Admin",
-        database = "memberDB",
-        password = "0000"
+        host = data["db"][1]["host"],
+        port = data["db"][1]["port"],
+        user = data["db"][1]["user"],
+        database = data["db"][1]["database"],
+        password = data["db"][1]["password"]
     )
     
     return db, db2
