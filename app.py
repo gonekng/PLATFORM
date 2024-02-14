@@ -1,10 +1,6 @@
 import time
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import plotly.express as px
-import plotly.figure_factory as ff
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import streamlit as st
@@ -975,13 +971,13 @@ def main():
 
   # 페이지 설정
     st.set_page_config(
-        page_title="에코아이 | 지역 기반 온실가스 배출량 데이터 시스템",
+        page_title="에코아이 | 지역 기반 온실가스 데이터 시스템",
         page_icon="🌱",
         layout="wide",
-        initial_sidebar_state="collapsed",
+        initial_sidebar_state="auto",
         menu_items={
             'Get Help': 'mailto:donumm64@ecoeye.com',
-            'About': "### 에코아이 환경정보사업팀 \n ##### 지역 기반 온실가스 배출량 데이터 플랫폼 \n 인턴연구원 강지원"
+            'About': "### 에코아이 환경정보사업팀 \n ##### 지역 기반 온실가스 데이터 플랫폼 \n 인턴연구원 강지원"
         }
     )
 
