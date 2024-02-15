@@ -24,19 +24,11 @@ def connect_db():
     
   # DB 연결하기
     db = mysql.connector.connect(
-        host = data["db"][0]["host"],
-        port = data["db"][0]["port"],
-        user = data["db"][0]["user"],
-        database = data["db"][0]["database"],
-        password = data["db"][0]["password"]
+        **st.secrets["mysql"]
     )
 
     db2 = mysql.connector.connect(
-        host = data["db"][1]["host"],
-        port = data["db"][1]["port"],
-        user = data["db"][1]["user"],
-        database = data["db"][1]["database"],
-        password = data["db"][1]["password"]
+        **st.secrets["mysql"]
     )
     
     return db, db2
