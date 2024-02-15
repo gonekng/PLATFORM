@@ -195,7 +195,7 @@ def set_sidebar():
 # 홈페이지
 def get_home():
 
-    st.write(f'<div style="font-size: 80px; font-weight: bold; text-align: center; height:150px;"> ECOEYE DATA PLATFORM </div>', unsafe_allow_html=True)
+    st.write(f'<div style="font-size: 120px; font-weight: bold; text-align: center; height:150px;"> ECOEYE DATA PLATFORM </div>', unsafe_allow_html=True)
     st.write("---")
     selected = option_menu(
         menu_title = None,
