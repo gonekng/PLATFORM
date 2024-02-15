@@ -30,7 +30,8 @@ def connect_db():
 def get_db1(num, filter=False):
 
     cat_lst = ["전체", "에너지", "산업공정", "농업", "LULUCF", "폐기물", "간접배출"]
-    query_s = 'select 연도, c.시도, c.시군구, a.구분1, a.구분2, a.구분3, a.구분4, a.구분5, b.활동자료1, b.활동자료2, b.활동자료3, b.단위, c.값, c.최신업데이트일, c.업데이트가능여부 '
+    # query_s = 'select cast(c.연도 as char) as 연도, c.시도, c.시군구, a.구분1, a.구분2, a.구분3, a.구분4, a.구분5, b.활동자료1, b.활동자료2, b.활동자료3, b.단위, c.값, c.최신업데이트일, c.업데이트가능여부 '
+    query_s = 'select *'
     query_f = 'from TB_CATEGORY a, TB_ACT_INFO b, TB_ACT_VALUE c '
     query_w = f'where a.id = b.category_id and b.id = c.activity_id and c.연도 >= {st.session_state.input_list[2]} and c.연도 <= {st.session_state.input_list[3]} and c.시도 = "{st.session_state.input_list[0]}" '
     if num != 0:
