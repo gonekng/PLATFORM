@@ -39,7 +39,6 @@ def get_db1(num, filter=False):
         query_w = query_w + f' and c.시군구 = "{st.session_state.input_list[1]}"'
 
     query = query_s + query_f + query_w
-    query = 'select * from TB_ACT_VALUE;'
     df = pd.read_sql(query, db)
     return df
 
