@@ -14,7 +14,7 @@ import warnings
 import json
 warnings.filterwarnings('ignore')
 
-# -------------------- MYSQL 연동 -------------------- #
+# -------------------- Sqlite3 연동 -------------------- #
 # DB 연동
 def connect_db():
 
