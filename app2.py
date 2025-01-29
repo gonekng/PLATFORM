@@ -723,7 +723,7 @@ def get_page3():
       ### 배출통계
         if selected == "배출통계":
             with st.container():
-                st.write("### :black[1. 연도별 온실가스 배출량 추이]", unsafe_allow_html=True)
+                st.write("### [1. 연도별 온실가스 배출량 추이]", unsafe_allow_html=True)
                 col1, col2 = st.columns([2,1])
                 with col2:
                     p = st.multiselect("항목 선택", options=['총배출량', '순배출량'], default=['총배출량', '순배출량'], key="p")
@@ -748,7 +748,7 @@ def get_page3():
                 st.write("---")
 
             with st.container():
-                st.write("### :black[2. 시도별 온실가스 배출량 비교]", unsafe_allow_html=True)
+                st.write("### [2. 시도별 온실가스 배출량 비교]", unsafe_allow_html=True)
                 col1, col2 = st.columns([2,1])
                 with col2:
                     y1 = st.selectbox("연도 선택", options=range(st.session_state.input_list[2],st.session_state.input_list[3]+1), key="year1")
@@ -772,7 +772,7 @@ def get_page3():
                 st.write("---")
 
             with st.container():
-                st.write("### :black[3. 시군구별 온실가스 배출량 비교]", unsafe_allow_html=True)
+                st.write("### [3. 시군구별 온실가스 배출량 비교]", unsafe_allow_html=True)
                 col1, col2 = st.columns([2,1])
                 with col2:
                     y2 = st.selectbox("연도 선택", options=range(st.session_state.input_list[2],st.session_state.input_list[3]+1), key="year2")
@@ -797,7 +797,7 @@ def get_page3():
                 st.write("---")
 
             with st.container():
-                st.write("### :black[4. 부문별 온실가스 배출량 비교]", unsafe_allow_html=True)
+                st.write("### [4. 부문별 온실가스 배출량 비교]", unsafe_allow_html=True)
                 col1, col2 = st.columns([2,1])
                 with col2:
                     y3 = st.selectbox("연도 선택", options=range(st.session_state.input_list[2],st.session_state.input_list[3]+1), key="year3")
@@ -847,7 +847,7 @@ def get_page3():
       ### 지표분석
         if selected == "지표분석":
             with st.container():
-                st.write("### :black[1. 연도별 탄소집약도 추이]", unsafe_allow_html=True)
+                st.write("### [1. 연도별 탄소집약도 추이]", unsafe_allow_html=True)
                 col1, col2 = st.columns([2,1])
                 with col1:
                     df = pd.read_sql(f'select a.시도, a.시군구, cast(b.연도 as char) as 연도, sum(b.소비량) as "에너지소비량", sum(b.소비량)/sum(d.배출량) as "탄소집약도" from tb_region a, tb_energy b, tb_category c, tb_emit_value d where a.코드 = b.코드 and a.시도 = d.시도 and a.시군구 = d.시군구 and b.연도 = d.연도 and c.ID = d.Category_ID and a.시도 = "{st.session_state.input_list[0]}" group by a.시도, a.시군구, b.연도;', db)
@@ -878,7 +878,7 @@ def get_page3():
                 st.write("---")
 
             with st.container():
-                st.write("### :black[2. 시군구 총배출량 vs 1인당 배출량]", unsafe_allow_html=True)
+                st.write("### [2. 시군구 총배출량 vs 1인당 배출량]", unsafe_allow_html=True)
                 col1, col2 = st.columns([2,1])
                 with col2:
                     y4 = st.selectbox("연도 선택", options=range(st.session_state.input_list[2],st.session_state.input_list[3]+1), key="year4")
@@ -905,7 +905,7 @@ def get_page3():
                 st.write("---")
 
             with st.container():
-                st.write("### :black[3. 시군구 총배출량 vs GRDP당 배출량]", unsafe_allow_html=True)
+                st.write("### [3. 시군구 총배출량 vs GRDP당 배출량]", unsafe_allow_html=True)
                 col1, col2 = st.columns([2,1])
                 with col2:
                     y5 = st.selectbox("연도 선택", options=range(st.session_state.input_list[2],st.session_state.input_list[3]+1), key="year5")
