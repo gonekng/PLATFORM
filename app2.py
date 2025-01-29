@@ -156,7 +156,7 @@ def move_map():
 # 사이드바 설정
 def set_sidebar():
 
-    st.sidebar.image(Image.open('./logo.png'), use_column_width = True)
+    st.sidebar.image(Image.open('./logo.png'), use_container_width = True)
     st.sidebar.title(":green[에코아이] / 환경정보사업팀")
     st.sidebar.write("---")
     
@@ -322,7 +322,7 @@ def get_page_0():
         st.components.v1.html(open("map.html", "r", encoding="utf-8").read(), height=550)
     with col3:
         st.write('<div style="font-size: 30px; font-weight: bold; margin: 20px 0px 50px 0px; text-align: center;"> " 지역 기반 온실가스 배출량 데이터 시스템 " </div>', unsafe_allow_html=True)
-        st.image(Image.open('./main_info.png'), use_column_width=True)
+        st.image(Image.open('./main_info.png'), use_container_width=True)
         st.write('<div style="font-size: 20px; margin: 30px 0px 50px 0px; text-align: center;"> 에코아이에서 자체 산정한 지역별 <b>온실가스 배출량 데이터</b>와 <br> 주요 통계지표를 결합한 <b>데이터 분석 및 시각화 서비스</b>를 제공합니다. </div>', unsafe_allow_html=True)
         c1, c2, c3 = st.columns([1,1,1])
         with c1:

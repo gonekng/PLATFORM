@@ -2,6 +2,7 @@ import time, sys, os
 import numpy as np
 import pandas as pd
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -83,7 +84,7 @@ def crawl(driver):
         # 조회할 조건
         input_lst = [
                         # 기간(시작년도,시작월,종료년도,종료월)
-                        (range_lst[0] - 2023) * (-1), 0, (range_lst[1] - 2023) * (-1), 11,
+                        (range_lst[0] - 2024) * (-1), 0, (range_lst[1] - 2024) * (-1), 11,
                         # 단위
                         int(input_df.iloc[idx,1]), 
                         # 지역(시도, 시군구)
@@ -485,12 +486,12 @@ def main():
     error_lst = []
 
     # 브라우저 옵션 설정
-    options = webdriver.ChromeOptions()
+    options = Options()
     # options.add_argument('--headless')
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
     # 브라우저 열기
-    browser = webdriver.Chrome(options=options)
+    browser = webdriver.Chrome("C:/Users/ecoeye/Documents/chromedriver-win64/chromedriver.exe", options=options)
     browser.maximize_window()
     browser.implicitly_wait(10)
 
